@@ -3,6 +3,10 @@
 # dependencies
 node_modules/
 
+#custom
+*.drawio
+NavigationContainer.jsx
+
 # Expo
 .expo/
 dist/
