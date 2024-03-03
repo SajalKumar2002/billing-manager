@@ -18,12 +18,20 @@ const CreateBill = ({ navigation }) => {
   }
 
   const [bill, setBill] = useState(initialBillData);
-  
+
+  const [initialItemDetails, setInitialItemDetails] = useState({
+    item: "",
+    quantity: "1",
+    unit: "",
+    rate: "",
+    price: ""
+  })
+
   const saveProducts = () => {
     addBill(bill, () => navigation.pop());
   };
 
-  const SaveButton = React.memo(({bill}) => (
+  const SaveButton = React.memo(({ bill }) => (
     <Button
       mode='text'
       disabled={bill.products.length === 0 || bill.customerName.length === 0}
@@ -44,10 +52,12 @@ const CreateBill = ({ navigation }) => {
       <BillForm
         setBill={setBill}
         bill={bill}
+        initialItemDetails={initialItemDetails}
       />
       <ProductsTable
         setBill={setBill}
         bill={bill}
+        setInitialItemDetails={setInitialItemDetails}
       />
       <TotalAmount products={bill.products} setBill={setBill} />
     </View>

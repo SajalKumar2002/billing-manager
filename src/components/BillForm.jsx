@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, TextInput } from 'react-native-paper';
 import { Dropdown } from 'react-native-element-dropdown';
 import 'react-native-get-random-values';
@@ -8,15 +8,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { Context } from '../context/Product/ProductContext';
 import unitList from '../data/units';
 
-const BillForm = ({ bill, setBill }) => {
+const BillForm = ({ bill, setBill, initialItemDetails }) => {
     const { state } = useContext(Context);
-    const initialItemDetails = {
-        item: "",
-        quantity: "1",
-        unit: unitList[0].value,
-        rate: "",
-        price: ""
-    }
+    // console.log(initialItemDetails);
     // Item Details is a object storing all the properties.
     // This represents all the values of a  single item
     // single or multiple items add upto a bill.
@@ -45,8 +39,24 @@ const BillForm = ({ bill, setBill }) => {
                 }
             ]
         }))
-        setItemDetals(initialItemDetails)
+        setItemDetals({
+            item: "",
+            quantity: "1",
+            unit: "",
+            rate: "",
+            price: ""
+        })
     }
+
+    useEffect(() => {
+        setItemDetals({
+            item: initialItemDetails.item,
+            quantity: initialItemDetails.quantity,
+            unit: initialItemDetails.unit,
+            rate: initialItemDetails.rate,
+            price: initialItemDetails.price
+        });
+    }, [initialItemDetails])
 
     return (
         <>
@@ -117,6 +127,16 @@ const BillForm = ({ bill, setBill }) => {
         </>
     )
 }
+
+// BillForm.defaultProps = {
+//     initialItemDetails: {
+//         item: "",
+//         quantity: "1",
+//         unit: "",
+//         rate: "",
+//         price: ""
+//     }
+// }
 
 export default React.memo(BillForm)
 

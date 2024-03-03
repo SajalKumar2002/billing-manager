@@ -21,6 +21,14 @@ const EditBill = ({ navigation, route }) => {
 
   const [bill, setBill] = useState(initialBillData);
 
+  const [initialItemDetails, setInitialItemDetails] = useState({
+    item: "",
+    quantity: "1",
+    unit: "",
+    rate: "",
+    price: ""
+  })
+
   const initialiseBill = () => {
     setBill(
       state.find(bill => bill.id === id)
@@ -66,10 +74,12 @@ const EditBill = ({ navigation, route }) => {
       <BillForm
         bill={bill}
         setBill={setBill}
+        initialItemDetails={initialItemDetails}
       />
       <ProductsTable
         bill={bill}
         setBill={setBill}
+        setInitialItemDetails={setInitialItemDetails}
       />
       <TotalAmount products={bill.products} setBill={setBill} />
     </View>
