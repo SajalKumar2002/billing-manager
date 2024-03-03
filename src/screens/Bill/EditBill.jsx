@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useContext, useEffect, useState, useMemo } from 'react';
+import { StyleSheet, View, ActivityIndicator } from 'react-native'
+import React, { useContext, useEffect, useState } from 'react';
 import { Button } from 'react-native-paper';
 
 import BillForm from '../../components/BillForm';
@@ -61,10 +61,8 @@ const EditBill = ({ navigation, route }) => {
 
   if (bill.customerName === '' && bill.products.length === 0) {
     return (
-      <View>
-        <Text>
-          Loading...
-        </Text>
+      <View style={styles.loader}>
+        <ActivityIndicator size='large' />
       </View>
     )
   }
@@ -91,5 +89,9 @@ export default EditBill
 const styles = StyleSheet.create({
   createViewStyles: {
     paddingHorizontal: 15,
+  },
+  loader: {
+    flex: 1,
+    justifyContent: 'center',
   }
 })
